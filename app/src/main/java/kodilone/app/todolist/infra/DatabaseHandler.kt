@@ -33,7 +33,7 @@ class DatabaseHandler(context: Context?) : SQLiteOpenHelper(context, NAME, null,
         db!!.insert(TODO_TABLE, null, cv)
     }
 
-    val allTasks: List<ToDo>
+    val allTasks: MutableList<ToDo>
         get() {
             val taskList: MutableList<ToDo> = ArrayList()
             var cur: Cursor? = null
