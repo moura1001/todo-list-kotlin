@@ -4,6 +4,7 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -33,6 +34,9 @@ class MainActivity : AppCompatActivity(), DialogCloseListener {
         todosRecyclerView?.setLayoutManager(LinearLayoutManager(this))
         todoAdapter = ToDoAdapter(this, db!!)
         todosRecyclerView?.setAdapter(todoAdapter)
+
+        val itemTouchHelper = ItemTouchHelper(RecyclerItemTouchHelper(todoAdapter!!))
+        itemTouchHelper.attachToRecyclerView(todosRecyclerView)
 
         fab = findViewById(R.id.fab)
 

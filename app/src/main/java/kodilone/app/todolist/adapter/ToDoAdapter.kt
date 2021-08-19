@@ -1,5 +1,6 @@
 package kodilone.app.todolist.adapter
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -46,6 +47,10 @@ class ToDoAdapter(private val activity: MainActivity, private val db: DatabaseHa
         return todoList!!.size
     }
 
+    fun getContext(): Context? {
+        return activity
+    }
+
     fun setTasks(todoList: MutableList<ToDo>?) {
         this.todoList = todoList
         notifyDataSetChanged()
@@ -59,6 +64,13 @@ class ToDoAdapter(private val activity: MainActivity, private val db: DatabaseHa
         val fragment = AddNewToDo()
         fragment.setArguments(bundle)
         fragment.show(activity.supportFragmentManager, AddNewToDo.TAG)
+    }
+
+    fun deleteItem(position: Int) {
+        val item: ToDo = todoList!![position]
+        db.deleteTask(item.id)
+        todoList!!.removeAt(position)
+        notifyItemRemoved(position)
     }
 
     class ViewHolder internal constructor(view: View) : RecyclerView.ViewHolder(view) {
